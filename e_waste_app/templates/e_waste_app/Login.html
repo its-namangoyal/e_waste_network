@@ -1,0 +1,54 @@
+{% extends 'e_waste_app/base.html' %}
+{% load crispy_forms_filters %}
+{% load static %}
+{% block title %}Login - E-Waste Recycling Network{% endblock %}
+{% block content %}
+<section class="login-section py-5">
+    <div class="container d-flex justify-content-end align-items-center vh-50">
+        <div class="d-flex flex-column align-items-end" style="height: 22rem; margin-right: 80px;">
+        <img src="https://media.istockphoto.com/id/1372577388/photo/old-electronic-devices-on-a-dark-background-the-concept-of-recycling-and-disposal-of.jpg?s=612x612&w=0&k=20&c=RGm3eCA76Y_IJJYGCLWS9acSR39Gb7iqsC_DIhJyG2g=" alt="e_waste" style="max-height: 352px"/>
+        </div>
+        <div class="card" style="width: 28rem;">
+            <div class="card-body">
+                <!-- Display messages -->
+            {% if messages %}
+                <div class="mb-4">
+                    {% for message in messages %}
+                        {% if message.tags == 'error' %}
+                            <div class="alert alert-danger mb-3" role="alert">
+                                {{ message }}
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            {% endif %}
+                <h2 class="card-title text-center mb-4">Login</h2>
+                <form method="POST" action="{% url 'e_waste_app:login' %}">
+                    {% csrf_token %}
+{#                    <div class="form-group row">#}
+{#                        <label for="{{ form.username.id_for_label }}" class="col-sm-4 col-form-label">Username</label>#}
+{#                        <div class="col-sm-8">#}
+{#                            {{ form.username }}#}
+{#                        </div>#}
+{#                    </div>#}
+{#                    <div class="form-group row">#}
+{#                        <label for="{{ form.password.id_for_label }}" class="col-sm-4 col-form-label">Password</label>#}
+{#                        <div class="col-sm-8">#}
+{#                            {{ form.password }}#}
+{#                        </div>#}
+{#                    </div>#}
+                    {{ form|crispy }}
+                    <div class="form-group row">
+                        <div class="col-sm-12">
+                            <button type="submit" class="btn btn-primary btn-block">Login</button>
+                        </div>
+                    </div>
+                </form>
+                <p class="text-center">Don't have an account? <a href="{% url 'e_waste_app:register' %}">Register here</a></p>
+                <p class="text-center">Forget password? <a href="{% url 'e_waste_app:password_reset' %}">Forget Password</a></p>
+            </div>
+        </div>
+    </div>
+
+</section>
+{% endblock %}
